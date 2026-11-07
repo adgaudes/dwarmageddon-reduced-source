@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/caravan/machine.gd" id="1_machine"]
+[ext_resource type="PackedScene" path="res://assets/models/companion_cart.glb" id="2_model"]
+
+[sub_resource type="BoxShape3D" id="BoxShape_machine"]
+size = Vector3(0.8, 0.6, 1.0)
+
+[node name="Machine" type="CharacterBody3D"]
+collision_layer = 8
+script = ExtResource("1_machine")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape_machine")
+
+[node name="Model" parent="." instance=ExtResource("2_model")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)

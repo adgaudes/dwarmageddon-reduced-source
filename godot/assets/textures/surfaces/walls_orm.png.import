@@ -1,0 +1,29 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://bix0mq2loo8g3"
+path.s3tc="res://.godot/imported/walls_orm.png-b9e9aa499cd96fb52293f2fa03070213.s3tc.ctexarray"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://assets/textures/surfaces/walls_orm.png"
+dest_files=["res://.godot/imported/walls_orm.png-b9e9aa499cd96fb52293f2fa03070213.s3tc.ctexarray"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=4

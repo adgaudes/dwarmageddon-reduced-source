@@ -1,0 +1,5 @@
+.godot/
+output/
+*.translation
+*.TMP
+__pycache__/

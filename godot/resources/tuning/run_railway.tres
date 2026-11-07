@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RunTuning" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/run/run_tuning.gd" id="1_tuning"]
+
+[resource]
+script = ExtResource("1_tuning")
+recovery_scrap_levels = 2.0
+boss_kind = &"driller"
+hopper_start_seconds = 120.0
+hopper_ramp_seconds = 300.0
+hopper_share_max = 0.25
+hopper_health_share = 0.5

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/player_character.gd" id="1_player"]
+[ext_resource type="Resource" path="res://resources/tuning/player_presets/snappy.tres" id="2_tuning"]
+[ext_resource type="PackedScene" path="res://assets/models/player_engineer.glb" id="3_model"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape_player"]
+radius = 0.34
+height = 1.76
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_player")
+tuning = ExtResource("2_tuning")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape_player")
+
+[node name="Model" parent="." instance=ExtResource("3_model")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.88, 0)

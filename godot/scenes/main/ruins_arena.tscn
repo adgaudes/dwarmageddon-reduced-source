@@ -1,0 +1,52 @@
+[gd_scene load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/services/skeleton_probe.gd" id="1_probe"]
+[ext_resource type="Script" path="res://scripts/arena/overgrown_arena.gd" id="2_arena"]
+[ext_resource type="Script" path="res://scripts/camera/isometric_camera_rig.gd" id="3_camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="4_player"]
+[ext_resource type="Script" path="res://scripts/terrain/terrain_field.gd" id="5_terrain"]
+[ext_resource type="Resource" path="res://resources/tuning/terrain_arena.tres" id="6_terrain_tuning"]
+[ext_resource type="Script" path="res://scripts/services/tuning_switcher.gd" id="9_switcher"]
+[ext_resource type="Resource" path="res://resources/tuning/player_default.tres" id="10_feel_unreal"]
+[ext_resource type="Resource" path="res://resources/tuning/player_presets/snappy.tres" id="11_feel_snappy"]
+[ext_resource type="Resource" path="res://resources/tuning/player_presets/heavy.tres" id="12_feel_heavy"]
+[ext_resource type="Resource" path="res://resources/tuning/player_presets/dash.tres" id="13_feel_dash"]
+[ext_resource type="Script" path="res://scripts/caravan/caravan.gd" id="14_caravan"]
+[ext_resource type="Resource" path="res://resources/tuning/caravan_default.tres" id="16_caravan_tuning"]
+[ext_resource type="Script" path="res://scripts/companion/scrap_field.gd" id="15_scrap"]
+
+[node name="RuinsArena" type="Node3D"]
+script = ExtResource("1_probe")
+
+[node name="OvergrownArena" type="Node3D" parent="." node_paths=PackedStringArray("terrain_field")]
+script = ExtResource("2_arena")
+terrain_field = NodePath("../TerrainField")
+
+[node name="TerrainField" type="Node3D" parent="."]
+script = ExtResource("5_terrain")
+size_m = Vector2(128, 128)
+tuning = ExtResource("6_terrain_tuning")
+
+[node name="Player" parent="." node_paths=PackedStringArray("terrain_field") instance=ExtResource("4_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
+terrain_field = NodePath("../TerrainField")
+
+[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_camera")
+target = NodePath("../Player")
+
+[node name="TuningSwitcher" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("9_switcher")
+player = NodePath("../Player")
+presets = [ExtResource("11_feel_snappy"), ExtResource("10_feel_unreal"), ExtResource("12_feel_heavy"), ExtResource("13_feel_dash")]
+
+[node name="ScrapField" type="Node3D" parent="." node_paths=PackedStringArray("terrain_field")]
+script = ExtResource("15_scrap")
+terrain_field = NodePath("../TerrainField")
+
+[node name="Caravan" type="Node3D" parent="." node_paths=PackedStringArray("player", "scrap_field")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 2.5)
+script = ExtResource("14_caravan")
+tuning = ExtResource("16_caravan_tuning")
+player = NodePath("../Player")
+scrap_field = NodePath("../ScrapField")

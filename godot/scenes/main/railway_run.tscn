@@ -1,0 +1,165 @@
+[gd_scene load_steps=26 format=3]
+
+[ext_resource type="Script" path="res://scripts/services/skeleton_probe.gd" id="1_probe"]
+[ext_resource type="Script" path="res://scripts/arena/railway_district.gd" id="2_arena"]
+[ext_resource type="Script" path="res://scripts/camera/isometric_camera_rig.gd" id="3_camera"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="4_player"]
+[ext_resource type="Script" path="res://scripts/terrain/terrain_field.gd" id="5_terrain_field"]
+[ext_resource type="Resource" path="res://resources/tuning/terrain_railway.tres" id="6_terrain_tuning"]
+[ext_resource type="Script" path="res://scripts/caravan/caravan.gd" id="7_caravan"]
+[ext_resource type="Resource" path="res://resources/tuning/caravan_default.tres" id="25_caravan_tuning"]
+[ext_resource type="Script" path="res://scripts/companion/scrap_field.gd" id="8_scrap"]
+[ext_resource type="Script" path="res://scripts/navigation/path_field.gd" id="9_path"]
+[ext_resource type="Script" path="res://scripts/enemies/enemy_director.gd" id="10_director"]
+[ext_resource type="Resource" path="res://resources/tuning/run_railway.tres" id="11_run_tuning"]
+[ext_resource type="Script" path="res://scripts/combat/auto_weapon.gd" id="12_weapon"]
+[ext_resource type="Script" path="res://scripts/progression/xp_field.gd" id="13_xp"]
+[ext_resource type="Script" path="res://scripts/run/arena_run.gd" id="14_run"]
+[ext_resource type="Script" path="res://scripts/run/day_night_cycle.gd" id="20_day_night"]
+[ext_resource type="Script" path="res://scripts/terrain/lamp_field.gd" id="21_lamps"]
+[ext_resource type="Script" path="res://scripts/ui/run_hud.gd" id="15_hud"]
+[ext_resource type="Script" path="res://scripts/ui/level_up_menu.gd" id="16_level_up"]
+[ext_resource type="Script" path="res://scripts/ui/game_over_panel.gd" id="17_game_over"]
+[ext_resource type="Script" path="res://scripts/audio/run_audio.gd" id="18_audio"]
+[ext_resource type="Script" path="res://scripts/ui/workshop_panel.gd" id="19_workshop"]
+[ext_resource type="Script" path="res://scripts/navigation/flow_preview.gd" id="20_flow"]
+[ext_resource type="Script" path="res://scripts/run/train_event.gd" id="22_train"]
+[ext_resource type="Script" path="res://scripts/run/extraction_pad.gd" id="24_extraction"]
+
+[node name="RailwayRun" type="Node3D"]
+script = ExtResource("1_probe")
+
+[node name="District" type="Node3D" parent="." node_paths=PackedStringArray("terrain_field")]
+script = ExtResource("2_arena")
+terrain_field = NodePath("../TerrainField")
+play_half_extent = 159.6
+play_half_extent_z = 61.2
+clear_half_extent = 0.0
+grass_tufts = 90000
+flowers = 4000
+
+[node name="TerrainField" type="Node3D" parent="."]
+script = ExtResource("5_terrain_field")
+size_m = Vector2(319.2, 122.4)
+tuning = ExtResource("6_terrain_tuning")
+
+[node name="Player" parent="." node_paths=PackedStringArray("terrain_field", "recoil_source", "lamp_field") instance=ExtResource("4_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
+terrain_field = NodePath("../TerrainField")
+recoil_source = NodePath("../PlayerWeapon")
+lamp_field = NodePath("../LampField")
+
+[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_camera")
+target = NodePath("../Player")
+
+[node name="PathField" type="Node3D" parent="." node_paths=PackedStringArray("target", "terrain_field")]
+script = ExtResource("9_path")
+target = NodePath("../Player")
+terrain_field = NodePath("../TerrainField")
+half_extent = 159.6
+half_extent_z = 61.2
+
+[node name="ScrapField" type="Node3D" parent="." node_paths=PackedStringArray("terrain_field")]
+script = ExtResource("8_scrap")
+terrain_field = NodePath("../TerrainField")
+
+[node name="Caravan" type="Node3D" parent="." node_paths=PackedStringArray("player", "scrap_field", "path_field")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 2.5)
+script = ExtResource("7_caravan")
+tuning = ExtResource("25_caravan_tuning")
+player = NodePath("../Player")
+scrap_field = NodePath("../ScrapField")
+path_field = NodePath("../PathField")
+
+[node name="LampField" type="Node3D" parent="." node_paths=PackedStringArray("terrain_field", "caravan")]
+script = ExtResource("21_lamps")
+terrain_field = NodePath("../TerrainField")
+caravan = NodePath("../Caravan")
+
+[node name="EnemyDirector" type="Node3D" parent="." node_paths=PackedStringArray("player", "path_field", "terrain_field")]
+script = ExtResource("10_director")
+tuning = ExtResource("11_run_tuning")
+player = NodePath("../Player")
+path_field = NodePath("../PathField")
+terrain_field = NodePath("../TerrainField")
+
+[node name="PlayerWeapon" type="Node3D" parent="." node_paths=PackedStringArray("shooter", "director")]
+script = ExtResource("12_weapon")
+shooter = NodePath("../Player")
+director = NodePath("../EnemyDirector")
+
+[node name="XpField" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("13_xp")
+player = NodePath("../Player")
+
+[node name="RunHud" type="CanvasLayer" parent="."]
+script = ExtResource("15_hud")
+
+[node name="LevelUpMenu" type="CanvasLayer" parent="."]
+script = ExtResource("16_level_up")
+
+[node name="GameOverPanel" type="CanvasLayer" parent="."]
+script = ExtResource("17_game_over")
+
+[node name="WorkshopPanel" type="CanvasLayer" parent="."]
+script = ExtResource("19_workshop")
+
+[node name="DayNightCycle" type="Node" parent="." node_paths=PackedStringArray("district")]
+script = ExtResource("20_day_night")
+district = NodePath("../District")
+
+[node name="TrainEvent" type="Node3D" parent="." node_paths=PackedStringArray("terrain_field", "district", "player", "caravan", "director", "lamp_field", "scrap_field", "hud")]
+script = ExtResource("22_train")
+terrain_field = NodePath("../TerrainField")
+district = NodePath("../District")
+player = NodePath("../Player")
+caravan = NodePath("../Caravan")
+director = NodePath("../EnemyDirector")
+lamp_field = NodePath("../LampField")
+scrap_field = NodePath("../ScrapField")
+hud = NodePath("../RunHud")
+
+[node name="ExtractionPad" type="Node3D" parent="." node_paths=PackedStringArray("terrain_field", "player", "hud")]
+script = ExtResource("24_extraction")
+terrain_field = NodePath("../TerrainField")
+player = NodePath("../Player")
+hud = NodePath("../RunHud")
+
+[node name="Run" type="Node" parent="." node_paths=PackedStringArray("district", "player", "caravan", "terrain_field", "director", "weapon", "xp_field", "hud", "level_up_menu", "game_over", "workshop", "day_night", "lamp_field", "train_event", "extraction_pad")]
+script = ExtResource("14_run")
+day_night = NodePath("../DayNightCycle")
+lamp_field = NodePath("../LampField")
+train_event = NodePath("../TrainEvent")
+extraction_pad = NodePath("../ExtractionPad")
+tuning = ExtResource("11_run_tuning")
+level_id = &"railway"
+district = NodePath("../District")
+player = NodePath("../Player")
+caravan = NodePath("../Caravan")
+terrain_field = NodePath("../TerrainField")
+director = NodePath("../EnemyDirector")
+weapon = NodePath("../PlayerWeapon")
+xp_field = NodePath("../XpField")
+hud = NodePath("../RunHud")
+level_up_menu = NodePath("../LevelUpMenu")
+game_over = NodePath("../GameOverPanel")
+workshop = NodePath("../WorkshopPanel")
+
+[node name="RunAudio" type="Node" parent="." node_paths=PackedStringArray("player", "weapon", "director", "terrain_field", "xp_field", "caravan", "level_up_menu", "run", "workshop")]
+script = ExtResource("18_audio")
+player = NodePath("../Player")
+weapon = NodePath("../PlayerWeapon")
+director = NodePath("../EnemyDirector")
+terrain_field = NodePath("../TerrainField")
+xp_field = NodePath("../XpField")
+caravan = NodePath("../Caravan")
+level_up_menu = NodePath("../LevelUpMenu")
+run = NodePath("../Run")
+workshop = NodePath("../WorkshopPanel")
+
+[node name="FlowPreview" type="Node3D" parent="." node_paths=PackedStringArray("path_field", "terrain_field")]
+script = ExtResource("20_flow")
+path_field = NodePath("../PathField")
+terrain_field = NodePath("../TerrainField")
+auto_show_on_terrain_change = false

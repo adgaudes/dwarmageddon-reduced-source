@@ -1,0 +1,418 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_pause"]
+[ext_resource type="Script" path="res://scripts/ui/settings_menu.gd" id="2_settings"]
+[ext_resource type="Texture2D" path="res://assets/textures/ui/rule.png" id="3_rule"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+layer = 100
+process_mode = 3
+script = ExtResource("1_pause")
+
+[node name="Overlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.09, 0.067, 0.051, 0.88)
+
+[node name="Center" type="CenterContainer" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PausePanel" type="PanelContainer" parent="Overlay/Center"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Overlay/Center/PausePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 32
+
+[node name="Buttons" type="VBoxContainer" parent="Overlay/Center/PausePanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Overlay/Center/PausePanel/Margin/Buttons"]
+theme_type_variation = &"TitleLabel"
+layout_mode = 2
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Overlay/Center/PausePanel/Margin/Buttons"]
+theme_type_variation = &"MainButton"
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Riprendi"
+
+[node name="SettingsButton" type="Button" parent="Overlay/Center/PausePanel/Margin/Buttons"]
+theme_type_variation = &"MainButton"
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Impostazioni"
+
+[node name="QuitButton" type="Button" parent="Overlay/Center/PausePanel/Margin/Buttons"]
+theme_type_variation = &"MainButton"
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "Esci"
+
+[node name="SettingsPanel" type="PanelContainer" parent="Overlay/Center"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(760, 0)
+layout_mode = 2
+script = ExtResource("2_settings")
+
+[node name="Margin" type="MarginContainer" parent="Overlay/Center/SettingsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="Scroll" type="ScrollContainer" parent="Overlay/Center/SettingsPanel/Margin"]
+custom_minimum_size = Vector2(0, 620)
+layout_mode = 2
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="Content" type="VBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+theme_type_variation = &"TitleLabel"
+layout_mode = 2
+text = "IMPOSTAZIONI"
+horizontal_alignment = 1
+
+[node name="GraphicsHeader" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+theme_type_variation = &"SectionLabel"
+layout_mode = 2
+text = "Grafica"
+
+[node name="GraphicsRule" type="TextureRect" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+texture = ExtResource("3_rule")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="PresetRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/PresetRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Preset grafico"
+
+[node name="PresetOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/PresetRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FpsRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/FpsRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Limite FPS"
+
+[node name="FpsOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/FpsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VsyncRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/VsyncRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Sincronizzazione verticale"
+
+[node name="VsyncOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/VsyncRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MsaaRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/MsaaRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Anti-aliasing MSAA 3D"
+
+[node name="MsaaOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/MsaaRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WindowRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/WindowRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Modalita finestra"
+
+[node name="WindowOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/WindowRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScaleRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/ScaleRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Scala rendering 3D"
+
+[node name="ScaleOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/ScaleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShadowRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/ShadowRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Qualita ombre"
+
+[node name="ShadowOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/ShadowRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SsaoRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/SsaoRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Occlusione ambientale"
+
+[node name="SsaoOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/SsaoRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GiRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/GiRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Illuminazione globale"
+
+[node name="GiOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/GiRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GlowRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/GlowRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Bagliore"
+
+[node name="GlowOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/GlowRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VolumetricCheck" type="CheckButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Nebbia volumetrica (solo Massimo)"
+
+[node name="TextureRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/TextureRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Qualita texture"
+
+[node name="TextureOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/TextureRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VegetationRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/VegetationRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Densita vegetazione (al prossimo livello)"
+
+[node name="VegetationOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/VegetationRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScreenAaRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/ScreenAaRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Antialiasing a schermo"
+
+[node name="ScreenAaOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/ScreenAaRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FsrCheck" type="CheckButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Upscaling FSR 2 (con scala sotto 100%)"
+
+[node name="AudioHeader" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+theme_type_variation = &"SectionLabel"
+layout_mode = 2
+text = "Audio"
+
+[node name="AudioRule" type="TextureRect" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+texture = ExtResource("3_rule")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="MasterVolumeRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/MasterVolumeRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Volume generale"
+
+[node name="MasterVolume" type="HSlider" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/MasterVolumeRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="MasterVolumeValue" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/MasterVolumeRow"]
+theme_type_variation = &"MutedLabel"
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="SfxVolumeRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/SfxVolumeRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Volume effetti"
+
+[node name="SfxVolume" type="HSlider" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/SfxVolumeRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SfxVolumeValue" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/SfxVolumeRow"]
+theme_type_variation = &"MutedLabel"
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="ControlsHeader" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+theme_type_variation = &"SectionLabel"
+layout_mode = 2
+text = "Controller"
+
+[node name="ControlsRule" type="TextureRect" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+texture = ExtResource("3_rule")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="CameraRow" type="HBoxContainer" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/CameraRow"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Distanza camera"
+
+[node name="CameraOption" type="OptionButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content/CameraRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InvertX" type="CheckButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Inverti asse X della mira con stick destro"
+
+[node name="InvertY" type="CheckButton" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Inverti asse Y della mira con stick destro"
+
+[node name="BackButton" type="Button" parent="Overlay/Center/SettingsPanel/Margin/Scroll/Content"]
+theme_type_variation = &"MainButton"
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Indietro"
